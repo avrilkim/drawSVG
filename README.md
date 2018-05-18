@@ -6,7 +6,7 @@ drawSVG
 
 
 ### Preview
-[https://www.youtube.com/watch?v=2Uc7ZKPxvcg&feature=youtu.be](https://www.youtube.com/watch?v=2Uc7ZKPxvcg&feature=youtu.be)
+[https://youtu.be/gjFF0bZ8t38/](https://youtu.be/gjFF0bZ8t38/)
 
 ### Example
 [http://avrilkim.github.io/canvasFrame/](http://avrilkim.github.io/canvasFrame/)
