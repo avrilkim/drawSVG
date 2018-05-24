@@ -5,28 +5,27 @@ var once = true;
 var detector = undefined;
 
 init = (function(){
-
-	/* size detect start */
-	var sizeDetect = function(){
+    /* size detect start */
+    var sizeDetect = function(){
         var device, previousDevice, handleOrientation, orientationEvent;
 
         previousDevice = window.device;
         device = {};
         window.device = device;
 
-        device.showPc = function(){return (window.innerWidth) > 959;}
-        device.showTablet = function(){return (window.innerWidth) > 513}
+        device.showPc = function(){return (window.innerWidth) > 959;};
+        device.showTablet = function(){return (window.innerWidth) > 513};
 
         device.noConflict = function () {window.device = previousDevice;return this;};
 
 
         handleOrientation = function () {
             if (device.showPc()) {
-                detector = 'pc'
+                detector = "pc"
             } else if(device.showTablet()){
-                detector ='tablet'
+                detector = "tablet"
             } else{
-                detector ='mobile'
+                detector = "mobile"
             }
         };
 
@@ -51,30 +50,30 @@ init = (function(){
 
 
     //board event
-    $('.container').on('click', function(e){
-        posX = $(this).offset().left;
-        posY = $(this).offset().top;
+    $(".container").on("click", function(e){
+        posX = e.offset().left;
+        posY = e.offset().top;
 
         function onPenpath (){
             isMove = true;
-            $('.drawingTool li img').hide();
-            $('.pointer').css('opacity','1');
+            $(".drawingTool li img").hide();
+            $(".pointer").css("opacity", "1");
         }
         if(isMove){
-            $('.drawingTool li img ').hide();
-            $('.pointer').css('opacity','0');
+            $(".drawingTool li img").hide();
+            $(".pointer").css("opacity","0");
         }
 
         if(current =='0' && isMove){ //thin pen
             isMove = false;
 
-            $('.thinpen').appendTo('.container').css({ opacity:1});
-            $('.container').removeClass('pink');
-            $('.pencil').show();
+            $(".thinpen").appendTo(".container").css({ opacity:1});
+            $(".container").removeClass("pink");
+            $(".pencil").show();
 
             var flipPath1, flipPath2, flipPath3, flipPath4, flipPath5, flipPath6, flipPath7, flipPath8, flipPath9, flipPath10;
 
-			if(detector == 'pc'){
+			if(detector == "pc"){
 				flipPath1 = MorphSVGPlugin.pathDataToBezier(".thin1");
 				flipPath2 = MorphSVGPlugin.pathDataToBezier(".thin2");
 				flipPath3 = MorphSVGPlugin.pathDataToBezier(".thin3");
@@ -86,7 +85,7 @@ init = (function(){
 				flipPath9 = MorphSVGPlugin.pathDataToBezier(".thin9");
 				flipPath10 = MorphSVGPlugin.pathDataToBezier(".thin10");
 
-			}else if(detector =='tablet'){
+			}else if(detector =="tablet"){
 				flipPath1 = MorphSVGPlugin.pathDataToBezier(".mthin1");
 				flipPath2 = MorphSVGPlugin.pathDataToBezier(".mthin2");
 				flipPath3 = MorphSVGPlugin.pathDataToBezier(".mthin3");
@@ -98,7 +97,7 @@ init = (function(){
 				flipPath9 = MorphSVGPlugin.pathDataToBezier(".mthin9");
 				flipPath10 = MorphSVGPlugin.pathDataToBezier(".mthin10");
 
-			}else if(detector=='mobile'){
+			}else if(detector=="mobile"){
 				flipPath1 = MorphSVGPlugin.pathDataToBezier(".sthin1");
 				flipPath2 = MorphSVGPlugin.pathDataToBezier(".sthin2");
 				flipPath3 = MorphSVGPlugin.pathDataToBezier(".sthin3");
@@ -118,43 +117,43 @@ init = (function(){
 
             TweenLite.to(".thinDraw", 0, {drawSVG:"0% 0%"});
 
-            tl2.to(".thin1", .3, {drawSVG:"0% 100%"});
+            tl2.to(".thin1", 0.3, {drawSVG:"0% 100%"});
             tl2.to(".thin2", spd2, {drawSVG:"0% 100%"});
             tl2.to(".thin3", spd2, {drawSVG:"0% 100%"});
-            tl2.to(".thin4", .2, {drawSVG:"0% 100%"});
+            tl2.to(".thin4", 0.2, {drawSVG:"0% 100%"});
             tl2.to(".thin5", spd2, {drawSVG:"0% 100%"});
             tl2.to(".thin6", spd2, {drawSVG:"0% 100%"});
-            tl2.to(".thin7", .3, {drawSVG:"0% 100%"});
-            tl2.to(".thin8", .1, {drawSVG:"0% 100%"});
-            tl2.to(".thin9", .2, {drawSVG:"0% 100%"});
-            tl2.to(".thin10", .3, {drawSVG:"0% 100%"});
+            tl2.to(".thin7", 0.3, {drawSVG:"0% 100%"});
+            tl2.to(".thin8", 0.1, {drawSVG:"0% 100%"});
+            tl2.to(".thin9", 0.2, {drawSVG:"0% 100%"});
+            tl2.to(".thin10", 0.3, {drawSVG:"0% 100%"});
 
 
-            tl.to(".pencil", .3, {bezier:{values:flipPath1, type:"cubic"}});
-            tl.to(".pencil",spd, {bezier:{values:flipPath2, type:"cubic"}});
+            tl.to(".pencil", 0.3, {bezier:{values:flipPath1, type:"cubic"}});
+            tl.to(".pencil", spd, {bezier:{values:flipPath2, type:"cubic"}});
             tl.to(".pencil", spd, {bezier:{values:flipPath3, type:"cubic"}});
-            tl.to(".pencil", .2, {bezier:{values:flipPath4, type:"cubic"}});
+            tl.to(".pencil", 0.2, {bezier:{values:flipPath4, type:"cubic"}});
             tl.to(".pencil", spd, {bezier:{values:flipPath5, type:"cubic"}});
             tl.to(".pencil", spd, {bezier:{values:flipPath6, type:"cubic"}});
-            tl.to(".pencil", .3, {bezier:{values:flipPath7, type:"cubic"}});
-            tl.to(".pencil", .1, {bezier:{values:flipPath8, type:"cubic"}});
-            tl.to(".pencil", .2, {bezier:{values:flipPath9, type:"cubic"}});
-            tl.to(".pencil", .3, {bezier:{values:flipPath10, type:"cubic"},onComplete:onPenpath});
+            tl.to(".pencil", 0.3, {bezier:{values:flipPath7, type:"cubic"}});
+            tl.to(".pencil", 0.1, {bezier:{values:flipPath8, type:"cubic"}});
+            tl.to(".pencil", 0.2, {bezier:{values:flipPath9, type:"cubic"}});
+            tl.to(".pencil", 0.3, {bezier:{values:flipPath10, type:"cubic"},onComplete:onPenpath});
 
             tl.play();
             tl2.play();
 
 
 
-        }else if(current =='1' && isMove){ //thick pen
+        }else if(current == "1" && isMove){ //thick pen
 
             isMove = false;
-            $('.thickpen').appendTo('.container').css({opacity:1});
-            $('.slimpen').show();
+            $(".thickpen").appendTo(".container").css({opacity:1});
+            $(".slimpen").show();
 
             var thickPath1, thickPath2, thickPath3, thickPath4, thickPath5, thickPath6, thickPath7, thickPath8;
 
-            if(detector=='pc'){
+            if(detector=="pc"){
                 thickPath1=MorphSVGPlugin.pathDataToBezier(".hl1");
                 thickPath2=MorphSVGPlugin.pathDataToBezier(".hl2");
                 thickPath3=MorphSVGPlugin.pathDataToBezier(".hl3");
@@ -164,7 +163,7 @@ init = (function(){
                 thickPath7=MorphSVGPlugin.pathDataToBezier(".hl7");
                 thickPath8=MorphSVGPlugin.pathDataToBezier(".hl8");
 
-            }else if(detector=='tablet'){
+            }else if(detector=="tablet"){
                 thickPath1=MorphSVGPlugin.pathDataToBezier(".mh1");
                 thickPath2=MorphSVGPlugin.pathDataToBezier(".mh2");
                 thickPath3=MorphSVGPlugin.pathDataToBezier(".mh3");
@@ -173,7 +172,7 @@ init = (function(){
                 thickPath6=MorphSVGPlugin.pathDataToBezier(".mh6");
                 thickPath7=MorphSVGPlugin.pathDataToBezier(".mh7");
                 thickPath8=MorphSVGPlugin.pathDataToBezier(".mh8");
-            }else if(detector=='mobile'){
+            }else if(detector=="mobile"){
                 thickPath1=MorphSVGPlugin.pathDataToBezier(".sh1");
                 thickPath2=MorphSVGPlugin.pathDataToBezier(".sh2");
                 thickPath3=MorphSVGPlugin.pathDataToBezier(".sh3");
@@ -187,57 +186,57 @@ init = (function(){
             var tl3 = new TimelineLite();
             var tl4 = new TimelineLite();
             TweenLite.to(".thickDraw", 0, {drawSVG:"0% 0%"});
-            tl4.to(".hl1", .3, {drawSVG:"0% 100%"});
-            tl4.to(".hl2", .5, {drawSVG:"0% 100%"});
-            tl4.to(".hl3", .3, {drawSVG:"0% 100%"});
-            tl4.to(".hl8", .1, {drawSVG:"0% 100%"});
-            tl4.to(".hl7", .1, {drawSVG:"0% 100%"});
-            tl4.to(".hl6", .1, {drawSVG:"0% 100%"});
-            tl4.to(".hl5", .1, {drawSVG:"0% 100%"});
-            tl4.to(".hl4", .1, {drawSVG:"0% 100%"});
+            tl4.to(".hl1", 0.3, {drawSVG:"0% 100%"});
+            tl4.to(".hl2", 0.5, {drawSVG:"0% 100%"});
+            tl4.to(".hl3", 0.3, {drawSVG:"0% 100%"});
+            tl4.to(".hl8", 0.1, {drawSVG:"0% 100%"});
+            tl4.to(".hl7", 0.1, {drawSVG:"0% 100%"});
+            tl4.to(".hl6", 0.1, {drawSVG:"0% 100%"});
+            tl4.to(".hl5", 0.1, {drawSVG:"0% 100%"});
+            tl4.to(".hl4", 0.1, {drawSVG:"0% 100%"});
 
-            tl3.to(".slimpen", .3, {bezier:{values:thickPath1, type:"cubic"}});
-            tl3.to(".slimpen", .5, {bezier:{values:thickPath2, type:"cubic"}});
-            tl3.to(".slimpen", .3, {bezier:{values:thickPath3, type:"cubic"}});
-            tl3.to(".slimpen", .1, {bezier:{values:thickPath8, type:"cubic"}});
-            tl3.to(".slimpen",.1, {bezier:{values:thickPath7, type:"cubic"}});
-            tl3.to(".slimpen", .1, {bezier:{values:thickPath6, type:"cubic"}});
-            tl3.to(".slimpen", .1, {bezier:{values:thickPath5, type:"cubic"}});
-            tl3.to(".slimpen", .1, {bezier:{values:thickPath4, type:"cubic"},onComplete:onPenpath});
+            tl3.to(".slimpen", 0.3, {bezier:{values:thickPath1, type:"cubic"}});
+            tl3.to(".slimpen", 0.5, {bezier:{values:thickPath2, type:"cubic"}});
+            tl3.to(".slimpen", 0.3, {bezier:{values:thickPath3, type:"cubic"}});
+            tl3.to(".slimpen", 0.1, {bezier:{values:thickPath8, type:"cubic"}});
+            tl3.to(".slimpen", 0.1, {bezier:{values:thickPath7, type:"cubic"}});
+            tl3.to(".slimpen", 0.1, {bezier:{values:thickPath6, type:"cubic"}});
+            tl3.to(".slimpen", 0.1, {bezier:{values:thickPath5, type:"cubic"}});
+            tl3.to(".slimpen", 0.1, {bezier:{values:thickPath4, type:"cubic"},onComplete:onPenpath});
 
             tl3.play();
 
-        }else if(current == '2' && isMove){ //fine erase
+        }else if(current == "2" && isMove){ //fine erase
 
             isMove = false;
-            $('.slim').appendTo('.container').css({opacity:1});
-            $('.finger').show();
+            $(".slim").appendTo(".container").css({opacity:1});
+            $(".finger").show();
 
             TweenLite.fromTo("#path", 1.8, {drawSVG:"0% 0%"}, {drawSVG:"0% 100%"});
             var fingerPath;
-            if(detector=='pc'){
+            if(detector=="pc"){
                 fingerPath = MorphSVGPlugin.pathDataToBezier("#path", {offsetX:0,offsetY:0});
-            }else if(detector =='tablet'){
+            }else if(detector =="tablet"){
                 fingerPath = MorphSVGPlugin.pathDataToBezier("#mpath", {offsetX:0,offsetY:0});
-            }else if(detector =='mobile'){
+            }else if(detector =="mobile"){
                 fingerPath= MorphSVGPlugin.pathDataToBezier("#spath", {offsetX:0,offsetY:0});
             }
 
             TweenLite.to(".finger", 1.8, {bezier:{values:fingerPath, type:"cubic"},onComplete:onPenpath});
 
-        }else if(current =='3' && isMove){ // area erase
+        }else if(current =="3" && isMove){ // area erase
 
             isMove = false;
-            $('.bold').appendTo('.container').css({ opacity:1});
-            $('.palm').show();
+            $(".bold").appendTo(".container").css({ opacity : 1});
+            $(".palm").show();
 
             var palmPath;
 
-            if(detector=='pc'){
+            if(detector == "pc"){
                 palmPath = MorphSVGPlugin.pathDataToBezier("#boldpath", {offsetX:-20,offsetY:-20});
-            }else if(detector=='tablet'){
+            }else if(detector == "tablet"){
                 palmPath = MorphSVGPlugin.pathDataToBezier("#mboldpath", {offsetX:-20,offsetY:-20});
-            }else if(detector=='mobile'){
+            }else if(detector == "mobile"){
                 palmPath = MorphSVGPlugin.pathDataToBezier("#sboldpath", {offsetX:-20,offsetY:-20});
             }
 
@@ -248,13 +247,13 @@ init = (function(){
 
             isMove = false;
 
-            $('.pinkpen').appendTo('.container').css({opacity:1});
-            $('.pencil').show();
-            $('.container').addClass('pink');
+            $(".pinkpen").appendTo(".container").css({opacity:1});
+            $(".pencil").show();
+            $(".container").addClass("pink");
 
             var pinkPath1, pinkPath2, pinkPath3, pinkPath4, pinkPath5, pinkPath6, pinkPath7, pinkPath8, pinkPath9, pinkPath10;
 
-            if(detector == 'pc'){
+            if(detector == "pc"){
                 pinkPath1 = MorphSVGPlugin.pathDataToBezier(".pink1");
                 pinkPath2 = MorphSVGPlugin.pathDataToBezier(".pink2");
                 pinkPath3 = MorphSVGPlugin.pathDataToBezier(".pink3");
@@ -266,7 +265,7 @@ init = (function(){
                 pinkPath9 = MorphSVGPlugin.pathDataToBezier(".pink9");
                 pinkPath10 = MorphSVGPlugin.pathDataToBezier(".pink10");
 
-            }else if(detector =='tablet'){
+            }else if(detector == "tablet"){
                 pinkPath1 = MorphSVGPlugin.pathDataToBezier(".mthin1");
                 pinkPath2 = MorphSVGPlugin.pathDataToBezier(".mthin2");
                 pinkPath3 = MorphSVGPlugin.pathDataToBezier(".mthin3");
@@ -278,7 +277,7 @@ init = (function(){
                 pinkPath9 = MorphSVGPlugin.pathDataToBezier(".mthin9");
                 pinkPath10 = MorphSVGPlugin.pathDataToBezier(".mthin10");
 
-            }else if(detector=='mobile'){
+            }else if(detector == "mobile"){
                 pinkPath1 = MorphSVGPlugin.pathDataToBezier(".sthin1");
                 pinkPath2 = MorphSVGPlugin.pathDataToBezier(".sthin2");
                 pinkPath3 = MorphSVGPlugin.pathDataToBezier(".sthin3");
@@ -295,32 +294,32 @@ init = (function(){
             var pl = new TimelineLite();
             var pl2 = new TimelineLite();
             var pspd = ".4";
-            var pspd2 = ".4"
+            var pspd2 = ".4";
 
             TweenLite.to(".pinkDraw", 0, {drawSVG:"0% 0%"});
 
-            pl2.to(".pink1", .3, {drawSVG:"0% 100%"});
+            pl2.to(".pink1", 0.3, {drawSVG:"0% 100%"});
             pl2.to(".pink2", pspd2, {drawSVG:"0% 100%"});
             pl2.to(".pink3", pspd2, {drawSVG:"0% 100%"});
-            pl2.to(".pink4", .2, {drawSVG:"0% 100%"});
+            pl2.to(".pink4", 0.2, {drawSVG:"0% 100%"});
             pl2.to(".pink5", pspd2, {drawSVG:"0% 100%"});
             pl2.to(".pink6", pspd2, {drawSVG:"0% 100%"});
-            pl2.to(".pink7", .3, {drawSVG:"0% 100%"});
-            pl2.to(".pink8", .1, {drawSVG:"0% 100%"});
-            pl2.to(".pink9", .2, {drawSVG:"0% 100%"});
-            pl2.to(".pink10", .3, {drawSVG:"0% 100%"});
+            pl2.to(".pink7", 0.3, {drawSVG:"0% 100%"});
+            pl2.to(".pink8", 0.1, {drawSVG:"0% 100%"});
+            pl2.to(".pink9", 0.2, {drawSVG:"0% 100%"});
+            pl2.to(".pink10", 0.3, {drawSVG:"0% 100%"});
 
 
-            pl.to(".pencil", .3, {bezier:{values:pinkPath1, type:"cubic"}});
-            pl.to(".pencil",pspd, {bezier:{values:pinkPath2, type:"cubic"}});
+            pl.to(".pencil", 0.3, {bezier:{values:pinkPath1, type:"cubic"}});
+            pl.to(".pencil", pspd, {bezier:{values:pinkPath2, type:"cubic"}});
             pl.to(".pencil", pspd, {bezier:{values:pinkPath3, type:"cubic"}});
-            pl.to(".pencil", .2, {bezier:{values:pinkPath4, type:"cubic"}});
+            pl.to(".pencil", 0.2, {bezier:{values:pinkPath4, type:"cubic"}});
             pl.to(".pencil", pspd, {bezier:{values:pinkPath5, type:"cubic"}});
             pl.to(".pencil", pspd, {bezier:{values:pinkPath6, type:"cubic"}});
-            pl.to(".pencil", .3, {bezier:{values:pinkPath7, type:"cubic"}});
-            pl.to(".pencil", .1, {bezier:{values:pinkPath8, type:"cubic"}});
-            pl.to(".pencil", .2, {bezier:{values:pinkPath9, type:"cubic"}});
-            pl.to(".pencil", .3, {bezier:{values:pinkPath10, type:"cubic"},onComplete:onPenpath});
+            pl.to(".pencil", 0.3, {bezier:{values:pinkPath7, type:"cubic"}});
+            pl.to(".pencil", 0.1, {bezier:{values:pinkPath8, type:"cubic"}});
+            pl.to(".pencil", 0.2, {bezier:{values:pinkPath9, type:"cubic"}});
+            pl.to(".pencil", 0.3, {bezier:{values:pinkPath10, type:"cubic"}, onComplete:onPenpath});
 
             pl.play();
             pl2.play();
@@ -335,10 +334,10 @@ $(document).ready(function(){
 
     //pointer following function
     var movePointer = function(){
-        $('.pointer').show();
-        if(detector !== 'mobile'){ /* 0105 mousemove */
-            $('.container').mousemove(function(e) {
-                $('.pointer').offset({
+        $(".pointer").show();
+        if(detector !== "mobile"){ /* 0105 mousemove */
+            $(".container").mousemove(function(e) {
+                $(".pointer").offset({
                     left: e.pageX,
                     top: e.pageY + 20
                 });
@@ -348,23 +347,23 @@ $(document).ready(function(){
     };
 
     //temporary function
-	$('.menu li').on('click', function(){
+	$(".menu li").on("click", function(){
 		var idx = $(this).index();
 		current = idx;
 		if(once){
 		    movePointer();
             once = false;
 		}
-		$('.menu li').removeClass('on');
-		$('.menu li').eq(idx).addClass('on');
-		if(idx==0 || idx==4){
-			$('.pointer').attr('src','../img/img_present_ca_pen.png');
-		}else if(idx ==1){
-            $('.pointer').attr('src','../img/img_present_ca_pencil.png');
-		}else if(idx==2){
-            $('.pointer').attr('src','../img/img_present_ca_finger.png');
-		}else if(idx==3){
-            $('.pointer').attr('src','../img/img_write_area.png');
+		$(".menu li").removeClass("on");
+		$(".menu li").eq(idx).addClass("on");
+		if(idx == 0 || idx == 4){
+			$(".pointer").attr("src", "../img/img_present_ca_pen.png");
+		}else if(idx == 1){
+            $(".pointer").attr("src", "../img/img_present_ca_pencil.png");
+		}else if(idx == 2){
+            $(".pointer").attr("src", "../img/img_present_ca_finger.png");
+		}else if(idx == 3){
+            $(".pointer").attr("src", "../img/img_write_area.png");
 		}
 	});
 
