@@ -51,8 +51,8 @@ init = (function(){
 
     //board event
     $(".container").on("click", function(e){
-        posX = e.offset().left;
-        posY = e.offset().top;
+        posX = $(this).offset().left;
+        posY = $(this).offset().top;
 
         function onPenpath (){
             isMove = true;
